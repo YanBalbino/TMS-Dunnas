@@ -1,6 +1,6 @@
 package com.dunnas.tms.model.base;
 
-import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -19,9 +19,11 @@ public abstract class BaseEntity {
     
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    private OffsetDateTime createdAt;
 
     @LastModifiedDate
     @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+    private OffsetDateTime updatedAt;
+
+    // createdBy and updatedBy are yet to be implemented
 }
