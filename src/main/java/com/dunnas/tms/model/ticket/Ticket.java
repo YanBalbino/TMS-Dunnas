@@ -24,6 +24,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -53,8 +54,8 @@ public class Ticket extends BaseEntity {
     @Column(name = "title", nullable = false, length = 150)
     private String title;
 
-    @NotBlank(message = "Description is required")
-    @Column(name = "description", nullable = false, length = 300)
+    @Size(min = 10, max = 300, message = "Description must be between 10 and 300 characters")
+    @Column(name = "description", length = 300)
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
