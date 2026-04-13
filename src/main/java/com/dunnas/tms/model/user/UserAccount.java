@@ -7,6 +7,7 @@ import java.util.Set;
 import org.hibernate.Hibernate;
 
 import com.dunnas.tms.model.base.BaseEntity;
+import com.dunnas.tms.model.ticket_type.TicketType;
 import com.dunnas.tms.model.unit.Unit;
 
 import jakarta.persistence.Column;
@@ -15,6 +16,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -61,6 +64,18 @@ public class UserAccount extends BaseEntity {
     @ToString.Exclude
     private Set<Unit> units = new HashSet<>();
 
+    // rule for collaborator assignment based on ticket type, using join table with user_id and ticket_type_id
+    @Builder.Default
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "collaborator_ticket_type",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "ticket_type_id")
+    )
+    @ToString.Exclude
+    private Set<TicketType> collaboratorTicketTypes = new HashSet<>();
+
+    // unique equals and hashCode methods based on id for proper entity comparison and hashing
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
