@@ -1,4 +1,4 @@
-package com.dunnas.tms.model.user;
+package com.dunnas.tms.feature.user;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -6,9 +6,9 @@ import java.util.Set;
 
 import org.hibernate.Hibernate;
 
-import com.dunnas.tms.model.base.BaseEntity;
-import com.dunnas.tms.model.ticket_type.TicketType;
-import com.dunnas.tms.model.unit.Unit;
+import com.dunnas.tms.feature.base.BaseEntity;
+import com.dunnas.tms.feature.ticket_type.TicketType;
+import com.dunnas.tms.feature.unit.Unit;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

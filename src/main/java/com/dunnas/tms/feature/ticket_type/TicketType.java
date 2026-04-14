@@ -1,11 +1,11 @@
-package com.dunnas.tms.model.ticket_type;
+package com.dunnas.tms.feature.ticket_type;
 
 
 import java.util.HashSet;
 import java.util.Set;
 
-import com.dunnas.tms.model.base.BaseEntity;
-import com.dunnas.tms.model.user.UserAccount;
+import com.dunnas.tms.feature.base.BaseEntity;
+import com.dunnas.tms.feature.user.UserAccount;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

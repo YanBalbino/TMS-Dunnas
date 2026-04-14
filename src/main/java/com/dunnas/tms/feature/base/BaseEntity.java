@@ -1,4 +1,4 @@
-package com.dunnas.tms.model.base;
+package com.dunnas.tms.feature.base;
 
 import java.time.OffsetDateTime;
 

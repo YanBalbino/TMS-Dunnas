@@ -1,16 +1,16 @@
-package com.dunnas.tms.model.ticket;
+package com.dunnas.tms.feature.ticket;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dunnas.tms.model.attachment.Attachment;
-import com.dunnas.tms.model.base.BaseEntity;
-import com.dunnas.tms.model.comment.Comment;
-import com.dunnas.tms.model.ticket_status.TicketStatus;
-import com.dunnas.tms.model.ticket_type.TicketType;
-import com.dunnas.tms.model.unit.Unit;
-import com.dunnas.tms.model.user.UserAccount;
+import com.dunnas.tms.feature.attachment.Attachment;
+import com.dunnas.tms.feature.base.BaseEntity;
+import com.dunnas.tms.feature.comment.Comment;
+import com.dunnas.tms.feature.ticket_status.TicketStatus;
+import com.dunnas.tms.feature.ticket_type.TicketType;
+import com.dunnas.tms.feature.unit.Unit;
+import com.dunnas.tms.feature.user.UserAccount;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

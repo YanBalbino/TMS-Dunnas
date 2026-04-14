@@ -1,10 +1,10 @@
-package com.dunnas.tms.model.block;
+package com.dunnas.tms.feature.block;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.dunnas.tms.model.base.BaseEntity;
-import com.dunnas.tms.model.unit.Unit;
+import com.dunnas.tms.feature.base.BaseEntity;
+import com.dunnas.tms.feature.unit.Unit;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;

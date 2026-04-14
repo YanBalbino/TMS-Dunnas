@@ -1,7 +1,7 @@
-package com.dunnas.tms.model.ticket_status;
+package com.dunnas.tms.feature.ticket_status;
 
 
-import com.dunnas.tms.model.base.BaseEntity;
+import com.dunnas.tms.feature.base.BaseEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
