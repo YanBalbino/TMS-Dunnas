@@ -1,8 +1,8 @@
-package com.dunnas.tms.feature.ticket_type.dto;
+package com.dunnas.tms.feature.ticketType.dto;
 
 import java.time.OffsetDateTime;
 
-import com.dunnas.tms.feature.ticket_type.TicketType;
+import com.dunnas.tms.feature.ticketType.TicketType;
 
 import lombok.Builder;
 

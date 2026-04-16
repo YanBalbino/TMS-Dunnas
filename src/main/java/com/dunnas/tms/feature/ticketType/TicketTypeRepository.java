@@ -1,4 +1,4 @@
-package com.dunnas.tms.feature.ticket_type;
+package com.dunnas.tms.feature.ticketType;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

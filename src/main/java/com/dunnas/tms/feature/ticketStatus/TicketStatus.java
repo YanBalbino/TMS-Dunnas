@@ -1,4 +1,4 @@
-package com.dunnas.tms.feature.ticket_status;
+package com.dunnas.tms.feature.ticketStatus;
 
 
 import com.dunnas.tms.feature.base.BaseEntity;

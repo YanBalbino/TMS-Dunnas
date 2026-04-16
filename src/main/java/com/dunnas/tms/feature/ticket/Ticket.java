@@ -7,8 +7,8 @@ import java.util.List;
 import com.dunnas.tms.feature.attachment.Attachment;
 import com.dunnas.tms.feature.base.BaseEntity;
 import com.dunnas.tms.feature.comment.Comment;
-import com.dunnas.tms.feature.ticket_status.TicketStatus;
-import com.dunnas.tms.feature.ticket_type.TicketType;
+import com.dunnas.tms.feature.ticketStatus.TicketStatus;
+import com.dunnas.tms.feature.ticketType.TicketType;
 import com.dunnas.tms.feature.unit.Unit;
 import com.dunnas.tms.feature.user.UserAccount;
 

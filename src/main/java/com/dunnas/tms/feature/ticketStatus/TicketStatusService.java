@@ -1,4 +1,4 @@
-package com.dunnas.tms.feature.ticket_status;
+package com.dunnas.tms.feature.ticketStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +8,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.dunnas.tms.feature.ticket_status.dto.TicketStatusDto;
-import com.dunnas.tms.feature.ticket_status.dto.TicketStatusRequestDto;
+import com.dunnas.tms.feature.ticketStatus.dto.TicketStatusDto;
+import com.dunnas.tms.feature.ticketStatus.dto.TicketStatusRequestDto;
 
 @Service
 public class TicketStatusService {

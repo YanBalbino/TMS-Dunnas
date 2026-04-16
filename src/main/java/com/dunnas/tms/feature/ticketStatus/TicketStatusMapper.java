@@ -1,6 +1,6 @@
-package com.dunnas.tms.feature.ticket_status;
+package com.dunnas.tms.feature.ticketStatus;
 
-import com.dunnas.tms.feature.ticket_status.dto.TicketStatusRequestDto;
+import com.dunnas.tms.feature.ticketStatus.dto.TicketStatusRequestDto;
 
 public final class TicketStatusMapper {
 

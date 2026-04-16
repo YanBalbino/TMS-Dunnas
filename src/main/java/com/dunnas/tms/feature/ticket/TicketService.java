@@ -13,10 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.dunnas.tms.feature.ticket.dto.TicketDto;
 import com.dunnas.tms.feature.ticket.dto.TicketRequestDto;
-import com.dunnas.tms.feature.ticket_status.TicketStatus;
-import com.dunnas.tms.feature.ticket_status.TicketStatusRepository;
-import com.dunnas.tms.feature.ticket_type.TicketType;
-import com.dunnas.tms.feature.ticket_type.TicketTypeRepository;
+import com.dunnas.tms.feature.ticketStatus.TicketStatus;
+import com.dunnas.tms.feature.ticketStatus.TicketStatusRepository;
+import com.dunnas.tms.feature.ticketType.TicketType;
+import com.dunnas.tms.feature.ticketType.TicketTypeRepository;
 import com.dunnas.tms.feature.unit.Unit;
 import com.dunnas.tms.feature.unit.UnitRepository;
 import com.dunnas.tms.feature.user.UserAccount;

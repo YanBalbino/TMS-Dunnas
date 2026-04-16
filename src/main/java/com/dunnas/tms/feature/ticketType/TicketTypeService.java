@@ -1,4 +1,4 @@
-package com.dunnas.tms.feature.ticket_type;
+package com.dunnas.tms.feature.ticketType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +7,8 @@ import java.util.NoSuchElementException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.dunnas.tms.feature.ticket_type.dto.TicketTypeDto;
-import com.dunnas.tms.feature.ticket_type.dto.TicketTypeRequestDto;
+import com.dunnas.tms.feature.ticketType.dto.TicketTypeDto;
+import com.dunnas.tms.feature.ticketType.dto.TicketTypeRequestDto;
 
 @Service
 public class TicketTypeService {

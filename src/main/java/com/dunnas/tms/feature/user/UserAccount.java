@@ -7,7 +7,7 @@ import java.util.Set;
 import org.hibernate.Hibernate;
 
 import com.dunnas.tms.feature.base.BaseEntity;
-import com.dunnas.tms.feature.ticket_type.TicketType;
+import com.dunnas.tms.feature.ticketType.TicketType;
 import com.dunnas.tms.feature.unit.Unit;
 
 import jakarta.persistence.Column;

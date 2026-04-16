@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.dunnas.tms.feature.user.UserAccount;
+import com.dunnas.tms.feature.ticketType.TicketType;
 import com.dunnas.tms.feature.unit.Unit;
-import com.dunnas.tms.feature.ticket_type.TicketType;
 
 import lombok.Builder;
 

@@ -1,4 +1,4 @@
-package com.dunnas.tms.feature.ticket_type.dto;
+package com.dunnas.tms.feature.ticketType.dto;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

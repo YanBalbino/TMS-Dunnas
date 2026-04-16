@@ -1,4 +1,4 @@
-package com.dunnas.tms.feature.ticket_status.dto;
+package com.dunnas.tms.feature.ticketStatus.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

@@ -1,6 +1,6 @@
-package com.dunnas.tms.feature.ticket_type;
+package com.dunnas.tms.feature.ticketType;
 
-import com.dunnas.tms.feature.ticket_type.dto.TicketTypeRequestDto;
+import com.dunnas.tms.feature.ticketType.dto.TicketTypeRequestDto;
 
 public final class TicketTypeMapper {
 
