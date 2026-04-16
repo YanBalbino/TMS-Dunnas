@@ -9,6 +9,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -53,6 +54,16 @@ public class GlobalExceptionHandler {
                 HttpStatus.FORBIDDEN,
                 "Acesso negado",
                 "Você não possui permissão para executar esta ação.",
+                request.getRequestURI()
+        );
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ModelAndView handleNoResourceFound(NoResourceFoundException exception, HttpServletRequest request) {
+        return errorView(
+                HttpStatus.NOT_FOUND,
+                "Página não encontrada",
+                "A rota solicitada não existe no sistema.",
                 request.getRequestURI()
         );
     }
