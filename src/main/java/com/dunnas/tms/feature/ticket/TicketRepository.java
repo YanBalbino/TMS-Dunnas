@@ -15,4 +15,6 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     List<Ticket> findAllByTicketTypeIdOrderByCreatedAtDesc(Long ticketTypeId);
 
     List<Ticket> findAllByTicketTypeIdInOrderByCreatedAtDesc(List<Long> ticketTypeIds);
+
+    boolean existsByAuthorId(Long authorId);
 }
