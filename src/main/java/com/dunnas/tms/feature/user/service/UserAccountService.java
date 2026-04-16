@@ -1,4 +1,4 @@
-package com.dunnas.tms.feature.user;
+package com.dunnas.tms.feature.user.service;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,6 +16,9 @@ import com.dunnas.tms.feature.ticketType.TicketType;
 import com.dunnas.tms.feature.ticketType.TicketTypeRepository;
 import com.dunnas.tms.feature.unit.Unit;
 import com.dunnas.tms.feature.unit.UnitRepository;
+import com.dunnas.tms.feature.user.UserAccount;
+import com.dunnas.tms.feature.user.UserAccountMapper;
+import com.dunnas.tms.feature.user.UserAccountRepository;
 import com.dunnas.tms.feature.user.dto.UserAccountDto;
 import com.dunnas.tms.feature.user.dto.UserAccountRequestDto;
 

@@ -18,7 +18,7 @@ import com.dunnas.tms.feature.ticket.dto.TicketRequestDto;
 import com.dunnas.tms.feature.ticketStatus.TicketStatusService;
 import com.dunnas.tms.feature.ticketType.TicketTypeService;
 import com.dunnas.tms.feature.unit.UnitService;
-import com.dunnas.tms.feature.user.UserAccountService;
+import com.dunnas.tms.feature.user.service.UserAccountService;
 
 import jakarta.validation.Valid;
 
