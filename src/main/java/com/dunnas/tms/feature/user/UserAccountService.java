@@ -128,7 +128,7 @@ public class UserAccountService {
         user.setRole(role);
 
         if (isAdminRole(role)) {
-            user.setUnits(new HashSet<>());
+            user.setUnits(units);
             user.setCollaboratorTicketTypes(new HashSet<>());
             return;
         }
@@ -140,7 +140,7 @@ public class UserAccountService {
         }
 
         if (isCollaboratorRole(role)) {
-            user.setUnits(new HashSet<>());
+            user.setUnits(units);
             user.setCollaboratorTicketTypes(ticketTypes);
             return;
         }

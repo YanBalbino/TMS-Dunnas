@@ -3,7 +3,6 @@ package com.dunnas.tms.feature.unit;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
@@ -132,21 +131,6 @@ public class UnitService {
             throw new NoSuchElementException("One or more resident users were not found");
         }
 
-        for (UserAccount user : users) {
-            if (!isResidentRole(user.getRole())) {
-                throw new IllegalStateException("User is not resident and cannot be linked to unit: " + user.getId());
-            }
-        }
-
         return new HashSet<>(users);
-    }
-
-    private boolean isResidentRole(String role) {
-        if (role == null) {
-            return false;
-        }
-
-        String normalized = role.trim().toUpperCase(Locale.ROOT);
-        return "RESIDENT".equals(normalized) || "ROLE_RESIDENT".equals(normalized);
     }
 }
