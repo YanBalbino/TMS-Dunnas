@@ -10,9 +10,6 @@ public record CommentRequestDto(
         String description,
 
         @NotNull(message = "Ticket id is required")
-        Long ticketId,
-
-        @NotNull(message = "Author id is required")
-        Long authorId
+        Long ticketId
 ) {
 }
