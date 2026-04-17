@@ -12,10 +12,8 @@ public record TicketRequestDto(
         @Size(min = 10, max = 300, message = "Description must be between 10 and 300 characters")
         String description,
 
-        @NotNull(message = "Status id is required")
         Long statusId,
 
-        @NotNull(message = "Author id is required")
         Long authorId,
 
         @NotNull(message = "Unit id is required")
