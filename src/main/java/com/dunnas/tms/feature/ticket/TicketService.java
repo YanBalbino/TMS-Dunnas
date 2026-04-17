@@ -77,6 +77,18 @@ public class TicketService {
     }
 
     @Transactional(readOnly = true)
+    public List<TicketDto> findAllByUnitNumber(Integer unitNumber) {
+        List<TicketDto> ticketsByUnitNumber = new ArrayList<>();
+        List<Ticket> ticketsByUnitNumberFromDatabase = ticketRepository.findAllByUnitNumberOrderByCreatedAtDesc(unitNumber);
+
+        for (Ticket ticket : ticketsByUnitNumberFromDatabase) {
+            ticketsByUnitNumber.add(TicketDto.fromEntity(ticket));
+        }
+
+        return ticketsByUnitNumber;
+    }
+
+    @Transactional(readOnly = true)
     public List<TicketDto> findAllByAuthorId(Long authorId) {
         ensureUserExists(authorId);
 
@@ -88,6 +100,19 @@ public class TicketService {
         }
 
         return ticketsByAuthor;
+    }
+
+    @Transactional(readOnly = true)
+    public List<TicketDto> findAllByAuthorName(String authorName) {
+        List<TicketDto> ticketsByAuthorName = new ArrayList<>();
+        List<Ticket> ticketsByAuthorNameFromDatabase = ticketRepository
+                .findAllByAuthorNameContainingIgnoreCaseOrderByCreatedAtDesc(authorName);
+
+        for (Ticket ticket : ticketsByAuthorNameFromDatabase) {
+            ticketsByAuthorName.add(TicketDto.fromEntity(ticket));
+        }
+
+        return ticketsByAuthorName;
     }
 
     @Transactional(readOnly = true)
@@ -104,6 +129,19 @@ public class TicketService {
     }
 
     @Transactional(readOnly = true)
+    public List<TicketDto> findAllByStatusName(String statusName) {
+        List<TicketDto> ticketsByStatusName = new ArrayList<>();
+        List<Ticket> ticketsByStatusNameFromDatabase = ticketRepository
+                .findAllByStatusNameContainingIgnoreCaseOrderByCreatedAtDesc(statusName);
+
+        for (Ticket ticket : ticketsByStatusNameFromDatabase) {
+            ticketsByStatusName.add(TicketDto.fromEntity(ticket));
+        }
+
+        return ticketsByStatusName;
+    }
+
+    @Transactional(readOnly = true)
     public List<TicketDto> findAllByTicketTypeId(Long ticketTypeId) {
         ensureTicketTypeExists(ticketTypeId);
         List<TicketDto> ticketsByTicketType = new ArrayList<>();
@@ -114,6 +152,19 @@ public class TicketService {
         }
 
         return ticketsByTicketType;
+    }
+
+    @Transactional(readOnly = true)
+    public List<TicketDto> findAllByTicketTypeTitle(String ticketTypeTitle) {
+        List<TicketDto> ticketsByTicketTypeTitle = new ArrayList<>();
+        List<Ticket> ticketsByTicketTypeTitleFromDatabase = ticketRepository
+                .findAllByTicketTypeTitleContainingIgnoreCaseOrderByCreatedAtDesc(ticketTypeTitle);
+
+        for (Ticket ticket : ticketsByTicketTypeTitleFromDatabase) {
+            ticketsByTicketTypeTitle.add(TicketDto.fromEntity(ticket));
+        }
+
+        return ticketsByTicketTypeTitle;
     }
 
     @Transactional(readOnly = true)
