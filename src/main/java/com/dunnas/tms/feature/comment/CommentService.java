@@ -53,9 +53,9 @@ public class CommentService {
     }
 
     @Transactional
-    public CommentDto create(CommentRequestDto request) {
+    public CommentDto create(CommentRequestDto request, Long authorId) {
         Ticket ticket = getTicketById(request.ticketId());
-        UserAccount author = getUserById(request.authorId());
+        UserAccount author = getUserById(authorId);
 
         Comment comment = CommentMapper.toEntity(request);
         comment.setTicket(ticket);
