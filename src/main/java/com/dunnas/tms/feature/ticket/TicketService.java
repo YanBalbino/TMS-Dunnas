@@ -194,10 +194,10 @@ public class TicketService {
     }
 
     @Transactional
-    public TicketDto create(TicketRequestDto request) {
+    public TicketDto create(TicketRequestDto request, Long loggedUserId) {
         TicketType ticketType = getTicketTypeById(request.ticketTypeId());
         Unit unit = getUnitById(request.unitId());
-        UserAccount author = getUserById(request.authorId());
+        UserAccount author = getUserById(loggedUserId);
 
         validateAuthorUnitScope(author, unit);
 
@@ -302,7 +302,7 @@ public class TicketService {
     }
 
     private void validateImmutableFields(Ticket existing, TicketRequestDto request) {
-        boolean authorChanged = !existing.getAuthor().getId().equals(request.authorId());
+        boolean authorChanged = request.authorId() != null && !existing.getAuthor().getId().equals(request.authorId());
         boolean unitChanged = !existing.getUnit().getId().equals(request.unitId());
         boolean ticketTypeChanged = !existing.getTicketType().getId().equals(request.ticketTypeId());
 
