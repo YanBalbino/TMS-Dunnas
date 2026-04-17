@@ -39,6 +39,13 @@ public class TicketStatusService {
         return TicketStatusDto.fromEntity(ticketStatus);
     }
 
+    @Transactional(readOnly = true)
+    public TicketStatusDto findDefault() {
+        TicketStatus defaultStatus = ticketStatusRepository.findByIsDefaultTrue()
+                .orElseThrow(() -> new NoSuchElementException("Default ticket status not configured"));
+        return TicketStatusDto.fromEntity(defaultStatus);
+    }
+
     @Transactional
     public TicketStatusDto create(TicketStatusRequestDto request) {
         TicketStatus ticketStatus = TicketStatusMapper.toEntity(request);
