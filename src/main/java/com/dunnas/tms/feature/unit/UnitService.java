@@ -67,6 +67,22 @@ public class UnitService {
         return UnitDto.fromEntity(unit);
     }
 
+    @Transactional(readOnly = true)
+    public List<UnitDto> findAllByResidentId(Long residentId) {
+        if (!userAccountRepository.existsById(residentId)) {
+            throw new NoSuchElementException("UserAccount not found: " + residentId);
+        }
+
+        List<UnitDto> unitsByResident = new ArrayList<>();
+        List<Unit> unitsFromDatabase = unitRepository.findDistinctByResidentsIdOrderByFloorNumberAscNumberAsc(residentId);
+
+        for (Unit unit : unitsFromDatabase) {
+            unitsByResident.add(UnitDto.fromEntity(unit));
+        }
+
+        return unitsByResident;
+    }
+
     @Transactional
     public UnitDto create(UnitRequestDto request) {
         Block block = getBlockById(request.blockId());
