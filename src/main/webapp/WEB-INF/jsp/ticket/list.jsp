@@ -23,13 +23,13 @@
     <form method="get" action="${pageContext.request.contextPath}/tickets" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
         <input type="number" name="unitNumber" value="${selectedUnitNumber}" placeholder="Filtrar por número da unidade"
                style="padding:8px;border:1px solid #c9c9c9;border-radius:6px;" />
-        <input type="text" name="authorName" value="${selectedAuthorName}" placeholder="Filtrar por nome do autor"
+        <input type="text" name="authorName" value="${selectedAuthorName}" placeholder="Filtrar por  autor"
                style="padding:8px;border:1px solid #c9c9c9;border-radius:6px;" />
-        <input type="text" name="statusName" value="${selectedStatusName}" placeholder="Filtrar por nome do status"
+        <input type="text" name="statusName" value="${selectedStatusName}" placeholder="Filtrar por status"
                style="padding:8px;border:1px solid #c9c9c9;border-radius:6px;" />
-        <input type="text" name="ticketTypeTitle" value="${selectedTicketTypeTitle}" placeholder="Filtrar por nome do tipo"
+        <input type="text" name="ticketTypeTitle" value="${selectedTicketTypeTitle}" placeholder="Filtrar por tipo"
                style="padding:8px;border:1px solid #c9c9c9;border-radius:6px;" />
-        <input type="text" name="collaboratorName" value="${selectedCollaboratorName}" placeholder="Escopo por nome do colaborador"
+        <input type="text" name="collaboratorName" value="${selectedCollaboratorName}" placeholder="Filtrar por colaborador"
                style="padding:8px;border:1px solid #c9c9c9;border-radius:6px;" />
 
         <button type="submit"
@@ -54,7 +54,6 @@
         <table style="width:100%;border-collapse:collapse;font-size:14px;">
             <thead>
                 <tr style="background:#f9fafb;">
-                    <th style="text-align:left;border:1px solid #e5e7eb;padding:8px;">ID</th>
                     <th style="text-align:left;border:1px solid #e5e7eb;padding:8px;">Título</th>
                     <th style="text-align:left;border:1px solid #e5e7eb;padding:8px;">Status</th>
                     <th style="text-align:left;border:1px solid #e5e7eb;padding:8px;">Tipo</th>
@@ -77,7 +76,6 @@
                     <c:otherwise>
                         <c:forEach var="ticket" items="${tickets}">
                             <tr>
-                                <td style="border:1px solid #e5e7eb;padding:8px;">${ticket.id}</td>
                                 <td style="border:1px solid #e5e7eb;padding:8px;">${ticket.title}</td>
                                 <td style="border:1px solid #e5e7eb;padding:8px;">${ticket.statusName}</td>
                                 <td style="border:1px solid #e5e7eb;padding:8px;">${ticket.ticketTypeTitle}</td>
