@@ -1,6 +1,8 @@
 package com.dunnas.tms.feature.ticket.dto;
 
 import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 import com.dunnas.tms.feature.ticket.Ticket;
 
@@ -20,10 +22,14 @@ public record TicketDto(
         Long ticketTypeId,
         String ticketTypeTitle,
         OffsetDateTime dueDate,
+        String dueDateFormatted,
         OffsetDateTime completedAt,
+        String completedAtFormatted,
         OffsetDateTime createdAt,
         OffsetDateTime updatedAt
 ) {
+    private static final ZoneId DEFAULT_ZONE_ID = ZoneId.of("America/Fortaleza");
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yy - HH:mm:ss");
 
     public static TicketDto fromEntity(Ticket ticket) {
         return TicketDto.builder()
@@ -39,9 +45,19 @@ public record TicketDto(
                 .ticketTypeId(ticket.getTicketType() != null ? ticket.getTicketType().getId() : null)
                 .ticketTypeTitle(ticket.getTicketType() != null ? ticket.getTicketType().getTitle() : null)
                 .dueDate(ticket.getDueDate())
+                .dueDateFormatted(formatDateTime(ticket.getDueDate()))
                 .completedAt(ticket.getCompletedAt())
+                .completedAtFormatted(formatDateTime(ticket.getCompletedAt()))
                 .createdAt(ticket.getCreatedAt())
                 .updatedAt(ticket.getUpdatedAt())
                 .build();
+    }
+
+    private static String formatDateTime(OffsetDateTime value) {
+        if (value == null) {
+            return "";
+        }
+
+        return value.atZoneSameInstant(DEFAULT_ZONE_ID).format(DATE_TIME_FORMATTER);
     }
 }
