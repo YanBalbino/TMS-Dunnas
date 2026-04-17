@@ -9,7 +9,7 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: #f4f5f7;
+            background: #b6b6b6;
             color: #1f1f1f;
         }
         .container {
@@ -45,7 +45,7 @@
             border: 0;
             border-radius: 6px;
             padding: 10px 12px;
-            background: #1d4ed8;
+            background: #4a397f;
             color: #fff;
             font-weight: 600;
             cursor: pointer;
@@ -70,7 +70,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Entrar no sistema</h1>
+        <h1>Entrar</h1>
 
         <% if (request.getParameter("error") != null) { %>
             <div class="message error">Usuário ou senha inválidos.</div>
