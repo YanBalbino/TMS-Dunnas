@@ -74,6 +74,13 @@ public class UserAccountService {
         return UserAccountDto.fromEntity(user);
     }
 
+    @Transactional(readOnly = true)
+    public UserAccountDto findByName(String name) {
+        UserAccount user = userAccountRepository.findFirstByNameIgnoreCase(name)
+                .orElseThrow(() -> new NoSuchElementException("UserAccount not found for name: " + name));
+        return UserAccountDto.fromEntity(user);
+    }
+
     @Transactional
     public UserAccountDto create(UserAccountRequestDto request) {
         if (userAccountRepository.existsByUsername(request.username())) {

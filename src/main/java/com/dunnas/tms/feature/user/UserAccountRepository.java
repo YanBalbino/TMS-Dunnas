@@ -17,4 +17,6 @@ public interface UserAccountRepository extends JpaRepository<UserAccount, Long> 
     List<UserAccount> findAllByRoleInOrderByNameAsc(Collection<String> roles);
 
     List<UserAccount> findDistinctByCollaboratorTicketTypesIdOrderByNameAsc(Long ticketTypeId);
+
+    Optional<UserAccount> findFirstByNameIgnoreCase(String name);
 }
