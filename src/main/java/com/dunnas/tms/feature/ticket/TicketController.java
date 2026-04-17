@@ -48,36 +48,36 @@ public class TicketController {
 
     @GetMapping
     public String list(
-            @RequestParam(required = false) Long unitId,
-            @RequestParam(required = false) Long authorId,
-            @RequestParam(required = false) Long statusId,
-            @RequestParam(required = false) Long ticketTypeId,
-            @RequestParam(required = false) Long collaboratorId,
+            @RequestParam(required = false) Integer unitNumber,
+            @RequestParam(required = false) String authorName,
+            @RequestParam(required = false) String statusName,
+            @RequestParam(required = false) String ticketTypeTitle,
+            @RequestParam(required = false) String collaboratorName,
             Model model
     ) {
         List<TicketDto> tickets;
 
-        //TODO: filtros dinâmicos com Specifications ou QueryDSL
-        if (collaboratorId != null) {
+        if (hasText(collaboratorName)) {
+            Long collaboratorId = userAccountService.findByName(collaboratorName.trim()).id();
             tickets = ticketService.findAllForCollaborator(collaboratorId);
-        } else if (unitId != null) {
-            tickets = ticketService.findAllByUnitId(unitId);
-        } else if (authorId != null) {
-            tickets = ticketService.findAllByAuthorId(authorId);
-        } else if (statusId != null) {
-            tickets = ticketService.findAllByStatusId(statusId);
-        } else if (ticketTypeId != null) {
-            tickets = ticketService.findAllByTicketTypeId(ticketTypeId);
+        } else if (unitNumber != null) {
+            tickets = ticketService.findAllByUnitNumber(unitNumber);
+        } else if (hasText(authorName)) {
+            tickets = ticketService.findAllByAuthorName(authorName.trim());
+        } else if (hasText(statusName)) {
+            tickets = ticketService.findAllByStatusName(statusName.trim());
+        } else if (hasText(ticketTypeTitle)) {
+            tickets = ticketService.findAllByTicketTypeTitle(ticketTypeTitle.trim());
         } else {
             tickets = ticketService.findAll();
         }
 
         model.addAttribute("tickets", tickets);
-        model.addAttribute("selectedUnitId", unitId);
-        model.addAttribute("selectedAuthorId", authorId);
-        model.addAttribute("selectedStatusId", statusId);
-        model.addAttribute("selectedTicketTypeId", ticketTypeId);
-        model.addAttribute("selectedCollaboratorId", collaboratorId);
+        model.addAttribute("selectedUnitNumber", unitNumber);
+        model.addAttribute("selectedAuthorName", authorName);
+        model.addAttribute("selectedStatusName", statusName);
+        model.addAttribute("selectedTicketTypeTitle", ticketTypeTitle);
+        model.addAttribute("selectedCollaboratorName", collaboratorName);
         return "ticket/list";
     }
 
@@ -147,5 +147,9 @@ public class TicketController {
         model.addAttribute("ticketTypes", ticketTypeService.findAll());
         model.addAttribute("units", unitService.findAll());
         model.addAttribute("users", userAccountService.findAll());
+    }
+
+    private boolean hasText(String value) {
+        return value != null && !value.isBlank();
     }
 }
