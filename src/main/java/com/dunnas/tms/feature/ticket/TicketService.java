@@ -221,19 +221,11 @@ public class TicketService {
         Ticket existing = getEntityById(id);
 
         TicketStatus status = getStatusById(request.statusId());
-        TicketType ticketType = getTicketTypeById(request.ticketTypeId());
-        Unit unit = getUnitById(request.unitId());
-        UserAccount author = getUserById(request.authorId());
-
-        validateAuthorUnitScope(author, unit);
+        validateImmutableFields(existing, request);
 
         TicketMapper.updateEntity(existing, request);
         existing.setStatus(status);
-        existing.setAuthor(author);
-        existing.setUnit(unit);
-        existing.setTicketType(ticketType);
-        existing.setDueDate(existing.getCreatedAt().plusDays(ticketType.getDeadlineDays()));
-        existing.setCompletedAt(Boolean.TRUE.equals(status.getIsFinalizer()) ? OffsetDateTime.now() : null);
+        existing.setCompletedAt(resolveCompletedAt(existing, status));
 
         Ticket saved = ticketRepository.save(existing);
         return TicketDto.fromEntity(saved);
@@ -307,6 +299,24 @@ public class TicketService {
 
         String normalized = role.trim().toUpperCase(Locale.ROOT);
         return "RESIDENT".equals(normalized) || "ROLE_RESIDENT".equals(normalized);
+    }
+
+    private void validateImmutableFields(Ticket existing, TicketRequestDto request) {
+        boolean authorChanged = !existing.getAuthor().getId().equals(request.authorId());
+        boolean unitChanged = !existing.getUnit().getId().equals(request.unitId());
+        boolean ticketTypeChanged = !existing.getTicketType().getId().equals(request.ticketTypeId());
+
+        if (authorChanged || unitChanged || ticketTypeChanged) {
+            throw new IllegalStateException("Author, unit and ticket type cannot be changed after ticket creation");
+        }
+    }
+
+    private OffsetDateTime resolveCompletedAt(Ticket existing, TicketStatus nextStatus) {
+        if (Boolean.TRUE.equals(nextStatus.getIsFinalizer())) {
+            return existing.getCompletedAt() != null ? existing.getCompletedAt() : OffsetDateTime.now();
+        }
+
+        return null;
     }
 
 
