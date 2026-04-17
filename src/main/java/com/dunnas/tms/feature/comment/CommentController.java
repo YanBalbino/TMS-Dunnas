@@ -1,9 +1,8 @@
 package com.dunnas.tms.feature.comment;
 
-import java.util.List;
-
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.dunnas.tms.feature.comment.dto.CommentDto;
 import com.dunnas.tms.feature.comment.dto.CommentRequestDto;
+import com.dunnas.tms.feature.user.UserAccountService;
 
 import jakarta.validation.Valid;
 
@@ -23,51 +23,45 @@ import jakarta.validation.Valid;
 public class CommentController {
 
     private final CommentService commentService;
+    private final UserAccountService userAccountService;
 
-    public CommentController(CommentService commentService) {
+    public CommentController(CommentService commentService, UserAccountService userAccountService) {
         this.commentService = commentService;
+        this.userAccountService = userAccountService;
     }
 
     @GetMapping
-    public String listByTicket(@RequestParam Long ticketId, Model model) {
-        List<CommentDto> comments = commentService.findAllByTicketId(ticketId);
-        model.addAttribute("ticketId", ticketId);
-        model.addAttribute("comments", comments);
-        return "comment/list";
+    public String listByTicket(@RequestParam Long ticketId) {
+        return "redirect:/tickets/" + ticketId;
     }
 
     @GetMapping("/new")
-    public String newForm(@RequestParam Long ticketId, @RequestParam Long authorId, Model model) {
-        model.addAttribute("commentForm", new CommentRequestDto("", ticketId, authorId));
-        return "comment/form";
+    public String newForm(@RequestParam Long ticketId) {
+        return "redirect:/tickets/" + ticketId;
     }
 
     @PostMapping
     public String create(
             @Valid @ModelAttribute("commentForm") CommentRequestDto request,
-            BindingResult bindingResult
+            BindingResult bindingResult,
+            Authentication authentication,
+            RedirectAttributes redirectAttributes
     ) {
         if (bindingResult.hasErrors()) {
-            return "comment/form";
+            redirectAttributes.addFlashAttribute("errorMessage", "Não foi possível adicionar o comentário.");
+            return "redirect:/tickets/" + request.ticketId();
         }
 
-        CommentDto created = commentService.create(request);
-        return "redirect:/comments?ticketId=" + created.ticketId();
+        Long loggedUserId = userAccountService.findByUsername(authentication.getName()).id();
+        CommentDto created = commentService.create(request, loggedUserId);
+        redirectAttributes.addFlashAttribute("successMessage", "Comentário adicionado com sucesso.");
+        return "redirect:/tickets/" + created.ticketId();
     }
 
     @GetMapping("/{id}/edit")
-    public String editForm(@PathVariable Long id, Model model) {
+    public String editForm(@PathVariable Long id) {
         CommentDto existing = commentService.findById(id);
-        model.addAttribute("commentId", existing.id());
-        model.addAttribute(
-                "commentForm",
-                new CommentRequestDto(
-                        existing.description(),
-                        existing.ticketId(),
-                        existing.authorId()
-                )
-        );
-        return "comment/form";
+        return "redirect:/tickets/" + existing.ticketId();
     }
 
     @PostMapping("/{id}")
@@ -75,17 +69,19 @@ public class CommentController {
             @PathVariable Long id,
             @Valid @ModelAttribute("commentForm") CommentRequestDto request,
             BindingResult bindingResult,
-            Model model
+            RedirectAttributes redirectAttributes
     ) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("commentId", id);
-            return "comment/form";
+            redirectAttributes.addFlashAttribute("errorMessage", "Não foi possível atualizar o comentário.");
+            return "redirect:/tickets/" + request.ticketId();
         }
 
         CommentDto updated = commentService.update(id, request);
-        return "redirect:/comments?ticketId=" + updated.ticketId();
+        redirectAttributes.addFlashAttribute("successMessage", "Comentário atualizado com sucesso.");
+        return "redirect:/tickets/" + updated.ticketId();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/{id}/delete")
     public String delete(
             @PathVariable Long id,
@@ -94,6 +90,6 @@ public class CommentController {
     ) {
         commentService.delete(id);
         redirectAttributes.addFlashAttribute("successMessage", "Comentário removido com sucesso.");
-        return "redirect:/comments?ticketId=" + ticketId;
+        return "redirect:/tickets/" + ticketId;
     }
 }

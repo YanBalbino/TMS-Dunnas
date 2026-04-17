@@ -3,7 +3,6 @@ package com.dunnas.tms.feature.attachment;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,46 +28,35 @@ public class AttachmentController {
     }
 
     @GetMapping
-    public String listByTicket(@RequestParam Long ticketId, Model model) {
-        List<AttachmentDto> attachments = attachmentService.findAllByTicketId(ticketId);
-        model.addAttribute("ticketId", ticketId);
-        model.addAttribute("attachments", attachments);
-        return "attachment/list";
+    public String listByTicket(@RequestParam Long ticketId) {
+        return "redirect:/tickets/" + ticketId;
     }
 
     @GetMapping("/new")
-    public String newForm(@RequestParam Long ticketId, Model model) {
-        model.addAttribute("attachmentForm", new AttachmentRequestDto("", null, "", ticketId));
-        return "attachment/form";
+    public String newForm(@RequestParam Long ticketId) {
+        return "redirect:/tickets/" + ticketId;
     }
 
     @PostMapping
     public String create(
             @Valid @ModelAttribute("attachmentForm") AttachmentRequestDto request,
-            BindingResult bindingResult
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes
     ) {
         if (bindingResult.hasErrors()) {
-            return "attachment/form";
+            redirectAttributes.addFlashAttribute("errorMessage", "Não foi possível adicionar o anexo.");
+            return "redirect:/tickets/" + request.ticketId();
         }
 
         AttachmentDto created = attachmentService.create(request);
-        return "redirect:/attachments?ticketId=" + created.ticketId();
+        redirectAttributes.addFlashAttribute("successMessage", "Anexo adicionado com sucesso.");
+        return "redirect:/tickets/" + created.ticketId();
     }
 
     @GetMapping("/{id}/edit")
-    public String editForm(@PathVariable Long id, Model model) {
+    public String editForm(@PathVariable Long id) {
         AttachmentDto existing = attachmentService.findById(id);
-        model.addAttribute("attachmentId", existing.id());
-        model.addAttribute(
-                "attachmentForm",
-                new AttachmentRequestDto(
-                        existing.fileName(),
-                        existing.mimeType(),
-                        existing.storagePath(),
-                        existing.ticketId()
-                )
-        );
-        return "attachment/form";
+        return "redirect:/tickets/" + existing.ticketId();
     }
 
     @PostMapping("/{id}")
@@ -76,15 +64,16 @@ public class AttachmentController {
             @PathVariable Long id,
             @Valid @ModelAttribute("attachmentForm") AttachmentRequestDto request,
             BindingResult bindingResult,
-            Model model
+            RedirectAttributes redirectAttributes
     ) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("attachmentId", id);
-            return "attachment/form";
+            redirectAttributes.addFlashAttribute("errorMessage", "Não foi possível atualizar o anexo.");
+            return "redirect:/tickets/" + request.ticketId();
         }
 
         AttachmentDto updated = attachmentService.update(id, request);
-        return "redirect:/attachments?ticketId=" + updated.ticketId();
+        redirectAttributes.addFlashAttribute("successMessage", "Anexo atualizado com sucesso.");
+        return "redirect:/tickets/" + updated.ticketId();
     }
 
     @PostMapping("/{id}/delete")
@@ -95,6 +84,6 @@ public class AttachmentController {
     ) {
         attachmentService.delete(id);
         redirectAttributes.addFlashAttribute("successMessage", "Anexo removido com sucesso.");
-        return "redirect:/attachments?ticketId=" + ticketId;
+        return "redirect:/tickets/" + ticketId;
     }
 }
